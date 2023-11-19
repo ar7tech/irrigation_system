@@ -17,17 +17,24 @@ dynamoDB.get(params, (err, data) => {
     if (err) {
         console.error('Erro ao ler do DynamoDB:', err);
     } else {
-        // Extrair os dados do item
-        const itemData = data.Item || {};
+        // Extrair apenas os atributos desejados do item
+        const { irrigate, thresholdMin, thresholdMax } = data.Item || {};
 
         // Tópico do AWS IoT Core
         const topic = 'nodemcu/sub';
+
+        // Criar um objeto com os atributos desejados
+        const itemSubset = {
+            irrigate,
+            thresholdMin,
+            thresholdMax
+        };
 
         // Publicar o resultado no IoT Core
         const iotParams = {
             topic: topic,
             qos: 1,
-            payload: JSON.stringify(itemData)
+            payload: JSON.stringify(itemSubset)
         };
 
         iotData.publish(iotParams, (publishErr, publishData) => {
