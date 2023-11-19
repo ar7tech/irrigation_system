@@ -3,16 +3,13 @@ import { dynamoDB, iotData } from "./aws.js"
 // Nome da tabela no DynamoDB
 const tableName = 'nodemcu';
 
-// Chave primária e valor da chave primária
-const primaryKey = 'id';
-const primaryKeyValue = '1';
-
 // Parâmetros para a operação GetItem no DynamoDB
 const params = {
     TableName: tableName,
     Key: {
-        [primaryKey]: primaryKeyValue
-    }
+        "id": "1",
+        "itemType": "config"
+    },
 };
 
 // Ler o item específico do DynamoDB

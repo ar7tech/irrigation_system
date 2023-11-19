@@ -1,8 +1,6 @@
 import aws from "aws-sdk"
 
 aws.config.update({
-    accessKeyId: "YOUR_ACCESS_KEY",
-    secretAccessKey: "YOUR_SECRET_KEY",
     region: 'us-east-1'
 });
 
