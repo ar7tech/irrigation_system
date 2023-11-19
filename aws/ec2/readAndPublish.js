@@ -20,21 +20,17 @@ dynamoDB.get(params, (err, data) => {
         // Extrair apenas os atributos desejados do item
         const { irrigate, thresholdMin, thresholdMax } = data.Item || {};
 
+        // Criar um array com os valores dos atributos
+        const valuesArray = [irrigate, thresholdMin, thresholdMax];
+
         // Tópico do AWS IoT Core
         const topic = 'nodemcu/sub';
-
-        // Criar um objeto com os atributos desejados
-        const itemSubset = {
-            irrigate,
-            thresholdMin,
-            thresholdMax
-        };
 
         // Publicar o resultado no IoT Core
         const iotParams = {
             topic: topic,
             qos: 1,
-            payload: JSON.stringify(itemSubset)
+            payload: JSON.stringify(valuesArray)
         };
 
         iotData.publish(iotParams, (publishErr, publishData) => {
