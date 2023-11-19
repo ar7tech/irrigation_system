@@ -1,0 +1,8 @@
+# logs
+logs*.logs
+
+# aws keys/certs
+*.pem
+*.crt
+*.key
+*.h
