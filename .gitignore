@@ -27,6 +27,3 @@ dist-ssr
 *.pem
 *.crt
 *.key
-
-# arduino secret file, contains password.
-secrets.h
