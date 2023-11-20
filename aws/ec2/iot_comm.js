@@ -97,11 +97,9 @@ export async function reading(req, res) {
     try {
         const data = await dynamoDB.scan(params).promise();
 
-        // Ordenar os resultados pelo id
-        data.Items.sort((a, b) => a.id - b.id);
-
-        // Pegar os últimos 3 itens
-        const ultimosTresItens = data.Items.slice(-3);
+        const ultimosTresItens = data.Items
+            .sort((a, b) => a.id - b.id)
+            .slice(-3);
 
         res.json(ultimosTresItens);
       } catch (error) {
