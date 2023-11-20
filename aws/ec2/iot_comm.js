@@ -91,16 +91,16 @@ export async function sendConfig(req, res) {
 export async function reading(req, res) {
     const params = {
         TableName: tableName,
-        FilterExpression: "itemType = :itemTypeValue",
+        KeyConditionExpression: "itemType = :itemTypeValue",
         ExpressionAttributeValues: {
             ":itemTypeValue": "nodemcu",
         },
-        ScanIndexForward: false,
         Limit: 3,
+        ScanIndexForward: false,
     }
 
     try {
-        const data = await dynamoDB.scan(params).promise()
+        const data = await dynamoDB.query(params).promise()
         res.json(data.Items)
       } catch (error) {
         console.error(error)
