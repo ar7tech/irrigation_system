@@ -59,9 +59,7 @@ export async function updateConf(req, res) {
             "id": "1",
             "itemType": "config"
         },
-        UpdateExpression: "SET irrigate = :newIrrigate",
-        UpdateExpression: "SET thresholdMin = :newThresholdMin",
-        UpdateExpression: "SET thresholdMax = :newThresholdMax",
+        UpdateExpression: "SET irrigate = :newIrrigate, thresholdMin = :newThresholdMin, thresholdMax = :newThresholdMax",
         ExpressionAttributeValues: {
             ":newIrrigate": req.body.irrigate,
             ":newThresholdMin": req.body.thresholdMin,
