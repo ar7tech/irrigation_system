@@ -95,7 +95,7 @@ export async function reading(req, res) {
         ExpressionAttributeValues: {
             ":itemTypeValue": "nodemcu",
         },
-        LIMIT: 3,
+        Limit: 3,
     }
 
     try {
