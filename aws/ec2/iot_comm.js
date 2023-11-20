@@ -92,7 +92,6 @@ export async function reading(req, res) {
     const params = {
         TableName: tableName,
         Key: {
-            "id": "1",
             "itemType": "nodemcu"
         },
     }
