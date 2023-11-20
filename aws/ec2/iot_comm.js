@@ -3,7 +3,7 @@ import { dynamoDB, iotData } from "./aws.js"
 // Nome da tabela no DynamoDB
 const tableName = 'nodemcu';
 
-export async function checkConfig(req, res) {
+export async function sendConfig(req, res) {
     // Parâmetros para a operação GetItem no DynamoDB
     const params = {
         TableName: tableName,
@@ -44,11 +44,37 @@ export async function checkConfig(req, res) {
                 });
             }
         })
-        res.json("Busca efetuada com sucesso!")
+        res.json({ message: "Busca efetuada com sucesso!" })
         res.status(200)
     } catch (error) {
         console.error(error)
         res.status(500).json({ error: "Erro ao buscar item no banco de dados" })
     }
-    
+}
+
+export async function updateConf(req, res) {
+    const params = {
+        TableName: tableName,
+        Key: {
+            "id": "1",
+            "itemType": "config"
+        },
+        UpdateExpression: "SET irrigate = :newIrrigate",
+        UpdateExpression: "SET thresholdMin = :newThresholdMin",
+        UpdateExpression: "SET thresholdMax = :newThresholdMax",
+        ExpressionAttributeValues: {
+            ":newIrrigate": req.body.irrigate,
+            ":newThresholdMin": req.body.thresholdMin,
+            ":newThresholdMax": req.body.thresholdMax,
+        },
+        ReturnValues: "ALL_NEW"
+    }
+
+    try {
+        const data = await dynamoDB.update(params).promise()
+        res.json(data.Item)
+      } catch (error) {
+        console.error(error)
+        res.status(500).json({ error: "Erro ao atualizar item no banco de dados" })
+      }
 }
