@@ -95,6 +95,7 @@ export async function reading(req, res) {
         ExpressionAttributeValues: {
             ":itemTypeValue": "nodemcu",
         },
+        ScanIndexForward: false,
         Limit: 3,
     }
 
