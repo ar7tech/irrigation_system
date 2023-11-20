@@ -91,14 +91,15 @@ export async function sendConfig(req, res) {
 export async function reading(req, res) {
     const params = {
         TableName: tableName,
-        Key: {
-            "itemType": "nodemcu"
+        FilterExpression: "itemType = :itemTypeValue",
+        ExpressionAttributeValues: {
+            ":itemTypeValue": "nodemcu",
         },
     }
 
     try {
-        const data = await dynamoDB.get(params).promise()
-        res.json(data.Item)
+        const data = await dynamoDB.scan(params).promise()
+        res.json(data.Items)
       } catch (error) {
         console.error(error)
         res.status(500).json({ error: "Erro ao buscar item no banco de dados" })
