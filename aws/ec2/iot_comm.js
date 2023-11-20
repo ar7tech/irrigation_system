@@ -97,11 +97,13 @@ export async function reading(req, res) {
     try {
         const data = await dynamoDB.scan(params).promise();
 
-        const ultimosTresItens = data.Items
-            .sort((a, b) => a.id - b.id)
-            .slice(-3);
+        data.Items.sort((a, b) => a.id - b.id);
 
-        res.json(ultimosTresItens);
+        const ultimosTresItens = data.Items.slice(-3);
+
+        const dadosDosUltimosTresItens = ultimosTresItens.map(item => item.dados);
+
+        res.json(dadosDosUltimosTresItens);
       } catch (error) {
         console.error(error)
         res.status(500).json({ error: "Erro ao buscar item no banco de dados" })
