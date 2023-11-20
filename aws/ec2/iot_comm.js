@@ -101,7 +101,7 @@ export async function reading(req, res) {
 
         const ultimosDados = data.Items
             .slice(-3)
-            .map(item => item.data);
+            .map(item => item.dados);
 
         res.json(ultimosDados);
       } catch (error) {
