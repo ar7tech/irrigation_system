@@ -10,7 +10,7 @@
 
 // Definicao dos pinos do sensor e atuador.
 #define sensor A0
-#define atuador D0
+#define atuador D7
 
 // Definicao dos valores minimos e maximos de leitura do sensor, media efetuada com dois sensores da mesma marca e modelo.
 #define umidadeMax 305
