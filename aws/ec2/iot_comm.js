@@ -91,7 +91,7 @@ export async function sendConfig(req, res) {
 export async function reading(req, res) {
     const params = {
         TableName: tableName,
-        KeyConditionExpression: "id",
+        KeyConditionExpression: "id = :",
         ExpressionAttributeValues: {
             ":itemTypeValue": "nodemcu",
         },
