@@ -91,17 +91,19 @@ export async function sendConfig(req, res) {
 export async function reading(req, res) {
     const params = {
         TableName: tableName,
-        KeyConditionExpression: "id = :",
-        ExpressionAttributeValues: {
-            ":itemTypeValue": "nodemcu",
-        },
-        Limit: 3,
-        ScanIndexForward: false,
+        ProjectionExpression: "id, dados",
     }
 
     try {
-        const data = await dynamoDB.query(params).promise()
-        res.json(data.Items)
+        const data = await dynamoDB.scan(params).promise();
+
+        // Ordenar os resultados pelo id
+        data.Items.sort((a, b) => a.id - b.id);
+
+        // Pegar os últimos 3 itens
+        const ultimosTresItens = data.Items.slice(-3);
+
+        res.json(ultimosTresItens);
       } catch (error) {
         console.error(error)
         res.status(500).json({ error: "Erro ao buscar item no banco de dados" })
