@@ -99,11 +99,11 @@ export async function reading(req, res) {
 
         data.Items.sort((a, b) => a.id - b.id);
 
-        const ultimosTresItens = data.Items.slice(-3);
+        const ultimosDados = data.Items
+            .slice(-3)
+            .map(item => item.data);
 
-        const dadosDosUltimosTresItens = ultimosTresItens.map(item => item.data);
-
-        res.json(dadosDosUltimosTresItens);
+        res.json(ultimosDados);
       } catch (error) {
         console.error(error)
         res.status(500).json({ error: "Erro ao buscar item no banco de dados" })
