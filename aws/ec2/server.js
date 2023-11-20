@@ -1,6 +1,6 @@
 import cors from "cors"
 import express from "express"
-import { checkConfig } from "./iot_comm.js"
+import { sendConfig, updateConf } from "./iot_comm.js"
 
 const app = express()
 app.use(express.json())
@@ -15,8 +15,12 @@ app.use(cors(corsOptions))
 
 const port = 80
 
-app.get("/sendConfig", async (req, res) => {
+app.get("/config/send", async (req, res) => {
   sendConfig(req, res)
+})
+
+app.patch("/config/update", async (req, res) => {
+  updateConf(req, res)
 })
 
 app.listen(port, () => console.log("Server is running on port:", port))
