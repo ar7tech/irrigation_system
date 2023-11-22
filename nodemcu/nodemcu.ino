@@ -140,7 +140,7 @@ bool acionarAtuador(float valor) {
   if (irrigate) {
     if(valor <= thresholdMin) { 
       digitalWrite(atuador, HIGH);
-      delay(2000);
+      delay(500);
       digitalWrite(atuador, LOW);
       return true;
     }
